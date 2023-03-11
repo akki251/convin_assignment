@@ -36,6 +36,7 @@ const TaskBoard = () => {
         return newCopy;
       });
     }
+    dispatch({ type: "STOP_EDIT" });
   }, []);
 
   const completeDelete = useCallback(() => {
