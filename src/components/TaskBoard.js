@@ -16,28 +16,31 @@ const TaskBoard = () => {
   const [columns, setColumns] = useState(columnsFromBackend);
 
   // ADD OR UPDATE TASK
-  const addTaskHandler = useCallback((taskData, columnId, isEditing) => {
-    if (isEditing) {
-      setColumns((prevColumns) => {
-        const newCopy = { ...prevColumns };
-        const destColumn = newCopy[columnId];
-        const oldItems = destColumn.items;
-        const existingItemIndex = oldItems.findIndex(
-          (item) => item.id === taskData.id
-        );
-        oldItems[existingItemIndex] = taskData;
-        return newCopy;
-      });
-    } else {
-      setColumns((prevColumns) => {
-        const newCopy = { ...prevColumns };
-        const destColumn = newCopy[columnId];
-        destColumn.items.push(taskData);
-        return newCopy;
-      });
-    }
-    dispatch({ type: "STOP_EDIT" });
-  }, []);
+  const addTaskHandler = useCallback(
+    (taskData, columnId, isEditing) => {
+      if (isEditing) {
+        setColumns((prevColumns) => {
+          const newCopy = { ...prevColumns };
+          const destColumn = newCopy[columnId];
+          const oldItems = destColumn.items;
+          const existingItemIndex = oldItems.findIndex(
+            (item) => item.id === taskData.id
+          );
+          oldItems[existingItemIndex] = taskData;
+          return newCopy;
+        });
+      } else {
+        setColumns((prevColumns) => {
+          const newCopy = { ...prevColumns };
+          const destColumn = newCopy[columnId];
+          destColumn.items.push(taskData);
+          return newCopy;
+        });
+      }
+      dispatch({ type: "STOP_EDIT" });
+    },
+    [dispatch]
+  );
 
   const completeDelete = useCallback(() => {
     dispatch({ type: "COMPLETE_DELETE" });
