@@ -32,7 +32,7 @@ const CreateTask = ({ onAddTask }) => {
     dispatch({
       type: "STOP_EDIT",
     });
-  });
+  }, [dispatch]);
 
   const submitHandler = () => {
     if (task.trim().length && video_url.trim().length) {
