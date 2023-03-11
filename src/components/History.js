@@ -1,4 +1,3 @@
-import { Divider } from "@nextui-org/react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { HiOutlineExternalLink } from "react-icons/hi";

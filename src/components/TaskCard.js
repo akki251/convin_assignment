@@ -1,6 +1,5 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { Modal, Input, Row, Checkbox, Button, Text } from "@nextui-org/react";
 import YouTube from "react-youtube";
 import { useDispatch } from "react-redux";
 import { AiFillDelete } from "react-icons/ai";

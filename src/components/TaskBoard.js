@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import styled from "@emotion/styled";
+import React, { useCallback, useState } from "react";
 import { columnsFromBackend } from "../TasksData";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import TaskCard from "./TaskCard";
@@ -14,9 +13,7 @@ import { executeDelete } from "../utils/executeDelete";
 const TaskBoard = () => {
   const dispatch = useDispatch();
   const toBeDeleted = useSelector((state) => state.taskReducer.toBeDeleted);
-  const history = useSelector((state) => state.taskReducer.history);
   const [columns, setColumns] = useState(columnsFromBackend);
-
 
   // ADD OR UPDATE TASK
   const addTaskHandler = useCallback((taskData, columnId, isEditing) => {
@@ -41,6 +38,10 @@ const TaskBoard = () => {
     }
   }, []);
 
+  const completeDelete = useCallback(() => {
+    dispatch({ type: "COMPLETE_DELETE" });
+  }, [dispatch]);
+
   const handleDelete = useCallback(() => {
     setColumns((prevColumns) => {
       const newCopy = { ...prevColumns };
@@ -57,11 +58,7 @@ const TaskBoard = () => {
     });
     toast.success(`${toBeDeleted.length} Tasks Deleted`);
     completeDelete();
-  }, [columns, toBeDeleted]);
-
-  const completeDelete = () => {
-    dispatch({ type: "COMPLETE_DELETE" });
-  };
+  }, [toBeDeleted, completeDelete]);
 
   const handleUpdateColumnTitle = (columnId, title) => {
     setColumns((prevColumns) => {
